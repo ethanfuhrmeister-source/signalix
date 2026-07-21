@@ -1,0 +1,78 @@
+<title>Complete your payment — Montero Connect Consulting</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .paypage{max-width:560px;margin:0 auto;padding:56px 22px 90px;text-align:center}
+  .paypage .back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;margin-bottom:22px}
+  .paypage .back:hover{color:var(--ink)}
+  .paypage .eyebrow{display:block;margin-bottom:12px}
+  .paypage h1{font-size:clamp(28px,4.4vw,40px);font-weight:800;letter-spacing:-.022em;line-height:1.1;margin:0 0 14px}
+  .paypage .lead{margin:0 auto}
+  .paycard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:34px;box-shadow:var(--sh);margin-top:26px}
+  .payamt{font-size:clamp(42px,8vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1}
+  .paykind{font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  .paycard .btn{width:100%;margin-top:24px;gap:9px}
+  .payfine{font-size:12.5px;color:var(--muted);margin-top:15px;line-height:1.55}
+  .payswitch{margin-top:18px;font-size:13px;color:var(--muted)}
+  .payswitch a{color:var(--accent-deep);font-weight:700;text-decoration:none}
+  .nav-home{color:#AEB8C6;font-weight:600;text-decoration:none;font-size:15px}
+  .nav-home:hover{color:#fff}
+</style>
+
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span class="tb-name">Andi Montero</span>
+    <span class="tb-sep">·</span>
+    <span class="tb-role">Independent Wireless Advisor</span>
+    <div class="tb-actions">
+      <a class="tb-call" href="tel:+17869758245"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>(786) 975-8245</a>
+      <a href="sms:+17869758245?&body=Hi%20Andi,%20I'd%20like%20a%20free%20wireless%20estimate.">Text</a>
+    </div>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="Montero Connect Consulting home">
+      <img class="sig" src="mark.jpg" alt="Montero Connect Consulting emblem" width="36" height="36">
+      Montero Connect
+    </a>
+    <div class="nav-cta" style="margin-left:auto"><a class="nav-home" href="index.html">Home</a></div>
+  </div>
+</header>
+
+<main class="paypage">
+  <a class="back" href="index.html">← Back to home</a>
+  <span class="eyebrow">Unlock your offers</span>
+  <h1 id="payHead">Thanks — your estimate is on the way.</h1>
+  <p class="lead">I'll shop your quotes and send your free estimate shortly. When you're ready to unlock every offer I found, pay your one-time fee below.</p>
+
+  <div class="paycard">
+    <div class="payamt" id="payAmt">$49.99</div>
+    <div class="paykind" id="payKind">Household · one-time fee</div>
+    <a class="btn btn-primary btn-lg" id="payBtn" href="#" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+      Pay with PayPal
+    </a>
+    <div class="payfine">You only pay after I've found you real savings. If I can't beat your current bill, there's nothing to pay.</div>
+    <div class="payswitch" id="paySwitch"></div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var type=q.get('type')||'Household';
+  var name=(q.get('name')||'').trim();
+  var isBiz=/business/i.test(type);
+  var amt=isBiz?'199':'49.99';
+  document.getElementById('payAmt').textContent='$'+amt;
+  document.getElementById('payKind').textContent=(isBiz?'Business':'Household')+' · one-time fee';
+  document.getElementById('payBtn').href='https://www.paypal.com/paypalme/EthanFuhrmeister/'+amt;
+  if(name){ document.getElementById('payHead').textContent='Thanks, '+name+' — your estimate is on the way.'; }
+  var sw=document.getElementById('paySwitch');
+  var nm = name ? '&name='+encodeURIComponent(name) : '';
+  if(isBiz){ sw.innerHTML='Household account? <a href="pay.html?type=Household'+nm+'">Pay $49.99 instead</a>'; }
+  else { sw.innerHTML='Business account? <a href="pay.html?type=Business'+nm+'">Pay $199 instead</a>'; }
+})();
+</script>
