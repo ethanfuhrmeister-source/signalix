@@ -1,332 +1,180 @@
 <title>Clearline — Independent Wireless Advisors</title>
 <style>
   :root{
-    --bg:#F7F8FA; --surface:#FFFFFF; --surface-2:#F0F2F6;
-    --ink:#0E1A2B; --muted:#5A6675; --faint:#8A94A2;
-    --line:#E2E6EC; --line-strong:#D3D9E1;
-    --accent:#E7A13A; --accent-ink:#8A5A12; --accent-soft:#FBEBCF;
-    --wave:#2FA8C9;
-    --good:#2F8F63;
-    --shadow:0 1px 2px rgba(14,26,43,.04),0 12px 32px -12px rgba(14,26,43,.14);
-    --maxw:1120px;
-    --serif:Georgia,"Times New Roman",serif;
+    --bg:#FFFFFF; --bg-alt:#F6F7F9; --card:#FFFFFF;
+    --ink:#15181E; --ink-soft:#3D434D; --muted:#6B7079;
+    --line:#E7E9ED; --line-strong:#D8DBE1;
+    --accent:#E7A13A; --accent-deep:#B4771A; --accent-soft:#FDF4E4;
+    --navy:#0B1524; --good:#2E8B60;
+    --sh-sm:0 1px 2px rgba(20,26,40,.05);
+    --sh:0 2px 6px rgba(20,26,40,.05),0 14px 34px -18px rgba(20,26,40,.18);
+    --maxw:1080px;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+    --r:14px;
   }
-  @media (prefers-color-scheme:dark){
-    :root{
-      --bg:#0B1017; --surface:#121A24; --surface-2:#0F161F;
-      --ink:#EAF0F6; --muted:#97A4B4; --faint:#6C7C8D;
-      --line:#233040; --line-strong:#2C3B4D;
-      --accent:#F0B454; --accent-ink:#F0B454; --accent-soft:#241C0F;
-      --wave:#3FB6D8;
-      --good:#5FC08C;
-      --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 40px -14px rgba(0,0,0,.6);
-    }
-  }
-  :root[data-theme="light"]{
-    --bg:#F7F8FA; --surface:#FFFFFF; --surface-2:#F0F2F6;
-    --ink:#0E1A2B; --muted:#5A6675; --faint:#8A94A2;
-    --line:#E2E6EC; --line-strong:#D3D9E1;
-    --accent:#E7A13A; --accent-ink:#8A5A12; --accent-soft:#FBEBCF;
-    --wave:#2FA8C9; --good:#2F8F63;
-    --shadow:0 1px 2px rgba(14,26,43,.04),0 12px 32px -12px rgba(14,26,43,.14);
-  }
-  :root[data-theme="dark"]{
-    --bg:#0B1017; --surface:#121A24; --surface-2:#0F161F;
-    --ink:#EAF0F6; --muted:#97A4B4; --faint:#6C7C8D;
-    --line:#233040; --line-strong:#2C3B4D;
-    --accent:#F0B454; --accent-ink:#F0B454; --accent-soft:#241C0F;
-    --wave:#3FB6D8; --good:#5FC08C;
-    --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 40px -14px rgba(0,0,0,.6);
-  }
-
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  body{
-    margin:0;background:var(--bg);color:var(--ink);
-    font-family:var(--sans);font-size:17px;line-height:1.6;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  }
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  section{padding:88px 0}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  section{padding:84px 0}
   a{color:inherit}
-  h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;text-wrap:balance;margin:0}
-  h2{font-size:clamp(28px,4vw,42px);line-height:1.1}
-  h3{font-size:20px;line-height:1.25}
+  h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.022em;line-height:1.08;text-wrap:balance}
+  h1{font-size:clamp(34px,5.4vw,56px)}
+  h2{font-size:clamp(27px,3.6vw,40px)}
+  h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
   p{margin:0}
-  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
-  .lead{color:var(--muted);font-size:clamp(17px,1.6vw,19px);max-width:60ch}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);font-weight:600}
+  .lead{color:var(--ink-soft);font-size:clamp(17px,1.5vw,19px);max-width:56ch}
+  .center{text-align:center;margin:0 auto}
+  .center .lead{margin-left:auto;margin-right:auto}
 
-  /* buttons */
-  .btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--sans);font-weight:600;font-size:15px;
-    padding:12px 20px;border-radius:9px;border:1px solid transparent;cursor:pointer;text-decoration:none;
-    transition:transform .15s ease,box-shadow .15s ease,background .15s ease,border-color .15s ease}
-  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  .btn-primary{background:var(--accent);color:#241606;border-color:var(--accent)}
-  :root[data-theme="dark"] .btn-primary{color:#231803}
-  @media (prefers-color-scheme:dark){.btn-primary{color:#231803}}
-  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 22px -8px rgba(231,161,58,.6)}
-  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
-  .btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:var(--sans);font-weight:700;font-size:16px;
+    padding:14px 24px;border-radius:11px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;
+    transition:transform .14s ease,box-shadow .14s ease,background .14s ease,border-color .14s ease}
+  .btn:focus-visible{outline:2px solid var(--accent-deep);outline-offset:2px}
+  .btn-primary{background:var(--accent);color:#231803;border-color:var(--accent)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(231,161,58,.7)}
+  .btn-ghost{background:#fff;color:var(--ink);border-color:var(--line-strong)}
+  .btn-ghost:hover{border-color:var(--ink)}
+  .btn-lg{padding:16px 28px;font-size:17px}
 
-  /* nav */
-  .topbar{background:#0B1524;color:#FFFFFF;border-bottom:1px solid rgba(255,255,255,.08)}
-  .topbar-in{display:flex;align-items:center;gap:12px;min-height:40px;padding:8px 0;flex-wrap:wrap}
-  .topbar .tb-name{font-family:var(--serif);font-size:15px;font-weight:600;color:#FFFFFF}
-  .topbar .tb-role{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#AFBDCD}
-  .topbar .tb-sep{color:#48586B}
+  /* top bar */
+  .topbar{background:var(--navy);color:#fff}
+  .topbar-in{display:flex;align-items:center;gap:12px;min-height:42px;padding:8px 0;flex-wrap:wrap}
+  .topbar .tb-name{font-weight:700;font-size:14.5px;color:#fff}
+  .topbar .tb-role{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:#AEBBCB}
+  .topbar .tb-sep{color:#42556B}
   .topbar .tb-actions{margin-left:auto;display:flex;gap:8px}
-  .topbar a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--sans);font-size:13.5px;font-weight:600;
-    padding:6px 13px;border-radius:8px;border:1px solid rgba(255,255,255,.24);color:#FFFFFF}
+  .topbar a{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-weight:600;font-size:13.5px;
+    padding:6px 13px;border-radius:8px;border:1px solid rgba(255,255,255,.24);color:#fff}
   .topbar a.tb-call{background:var(--accent);color:#231803;border-color:var(--accent)}
   .topbar a:hover{border-color:rgba(255,255,255,.6)}
-  .topbar a.tb-call:hover{border-color:var(--accent);filter:brightness(1.05)}
-  @media(max-width:520px){.topbar .tb-role,.topbar .tb-sep{display:none}}
-  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);
-    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;gap:24px;height:64px}
-  .brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:19px;text-decoration:none;letter-spacing:-.01em}
-  .brand .sig{width:26px;height:26px;flex:0 0 auto}
+  @media(max-width:540px){.topbar .tb-role,.topbar .tb-sep{display:none}}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;gap:22px;height:66px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;text-decoration:none;letter-spacing:-.02em}
+  .brand .sig{width:24px;height:24px;flex:0 0 auto}
   .nav-links{display:flex;gap:26px;margin-left:auto;align-items:center}
-  .nav-links a{text-decoration:none;color:var(--muted);font-size:14.5px;font-weight:500}
+  .nav-links a{text-decoration:none;color:var(--muted);font-size:15px;font-weight:600}
   .nav-links a:hover{color:var(--ink)}
-  .nav-cta{display:flex;align-items:center;gap:12px;margin-left:8px}
-  .theme-btn{background:transparent;border:1px solid var(--line-strong);color:var(--muted);width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:15px;display:grid;place-items:center}
-  .theme-btn:hover{color:var(--ink);border-color:var(--ink)}
-  @media(max-width:860px){.nav-links{display:none}}
+  .nav-cta{margin-left:6px}
+  @media(max-width:760px){.nav-links{display:none}.nav-cta{margin-left:auto}}
 
   /* hero */
-  .hero{position:relative;overflow:hidden;padding-top:64px;padding-bottom:96px}
-  #waves{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9}
-  .hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-  @media(max-width:900px){.hero-in{grid-template-columns:1fr;gap:36px}}
-  .hero h1{font-size:clamp(38px,6vw,64px);line-height:1.03;letter-spacing:-.02em}
-  .hero h1 em{font-style:normal;color:var(--accent-ink);position:relative;white-space:nowrap}
-  .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.14em;background:var(--accent);opacity:.55;border-radius:2px}
-  .hero .lead{margin-top:22px}
-  .hero-cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
-  .hero-trust{margin-top:30px;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.02em}
-  .hero-trust .dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 20%,transparent)}
+  .hero{padding:72px 0 76px}
+  .hero-in{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center}
+  @media(max-width:880px){.hero-in{grid-template-columns:1fr;gap:34px}}
+  .hero h1{margin-top:16px}
+  .hero .lead{margin-top:20px}
+  .hero-cta{display:flex;gap:13px;margin-top:30px;flex-wrap:wrap}
+  .hero-trust{margin-top:26px;display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+  .hero-trust .dot{width:8px;height:8px;border-radius:50%;background:var(--good);flex:0 0 auto;box-shadow:0 0 0 4px rgba(46,139,96,.15)}
 
-  /* estimator card in hero */
-  .est{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
-  .est .est-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:4px}
-  .est h3{font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:.01em}
-  .toggle{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:3px}
-  .toggle button{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:0;background:transparent;color:var(--muted);padding:6px 11px;border-radius:6px;cursor:pointer;font-weight:600}
-  .toggle button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
-  .est-readout{margin:18px 0 6px}
-  .est-readout .label{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-  .est-amt{font-family:var(--serif);font-size:clamp(34px,5vw,44px);line-height:1;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
-  .est-amt .cur{color:var(--muted);font-size:.6em;vertical-align:.08em}
-  .est-sub{font-size:13.5px;color:var(--muted);margin-top:8px}
-  .est-bar{height:9px;border-radius:99px;background:var(--surface-2);margin:18px 0 4px;overflow:hidden;position:relative}
-  .est-bar span{position:absolute;inset:0 auto 0 0;border-radius:99px;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--wave)));transition:width .25s ease}
-  .slider-row{margin-top:20px}
-  .slider-row .lr{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:8px}
-  .slider-row .lr b{color:var(--ink);font-weight:600}
-  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:99px;background:var(--surface-2);outline:none}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);box-shadow:0 2px 8px rgba(0,0,0,.25);cursor:pointer}
-  input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);cursor:pointer}
-  input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
-  .est-fine{font-size:11.5px;color:var(--faint);margin-top:16px;line-height:1.45}
+  .hero-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:var(--sh)}
+  .hc-label{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  .hc-row{display:flex;align-items:baseline;gap:14px;margin-top:16px;flex-wrap:wrap}
+  .hc-was{font-size:26px;font-weight:700;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line-strong)}
+  .hc-arrow{color:var(--accent-deep);font-weight:800;font-size:22px}
+  .hc-now{font-size:44px;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+  .hc-save{margin-top:16px;display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);color:var(--accent-deep);
+    font-weight:700;font-size:15px;padding:9px 15px;border-radius:99px}
+  .hc-note{margin-top:16px;color:var(--muted);font-size:14.5px}
 
-  /* trust strip */
-  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2)}
-  .strip .wrap{padding-top:26px;padding-bottom:26px}
-  .strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
-  @media(max-width:760px){.strip-grid{grid-template-columns:repeat(2,1fr);gap:26px}}
-  .stat .n{font-family:var(--serif);font-size:34px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .stat .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:9px}
-
-  /* generic section head */
-  .head{max-width:640px;margin-bottom:52px}
-  .head .eyebrow{display:block;margin-bottom:14px}
-  .head p{margin-top:16px}
+  /* generic head */
+  .head{max-width:640px;margin-bottom:46px}
+  .head.center{margin-left:auto;margin-right:auto}
+  .head .eyebrow{display:block;margin-bottom:13px}
+  .head p{margin-top:14px}
 
   /* steps */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
-  @media(max-width:980px){.steps{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:560px){.steps{grid-template-columns:1fr}}
-  .step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;position:relative}
-  .step .num{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--accent-ink);display:flex;align-items:center;gap:10px;margin-bottom:16px}
-  .step .num::before{counter-increment:s;content:counter(s,decimal-leading-zero)}
-  .step .num i{flex:1;height:1px;background:var(--line-strong);font-style:normal}
-  .step h3{font-family:var(--serif)}
-  .step p{color:var(--muted);font-size:15px;margin-top:10px}
+  .alt{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+  @media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;box-shadow:var(--sh-sm)}
+  .step .num{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-deep);
+    display:grid;place-items:center;font-weight:800;font-size:16px;margin-bottom:18px}
+  .step .num::before{counter-increment:s;content:counter(s)}
+  .step h3{margin-bottom:8px}
+  .step p{color:var(--muted);font-size:15px}
 
-  /* audiences */
-  .aud{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  @media(max-width:820px){.aud{grid-template-columns:1fr}}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:32px;box-shadow:var(--shadow)}
-  .card .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
-  .card h3{font-family:var(--serif);font-size:24px;margin:14px 0 6px}
-  .card>p{color:var(--muted);font-size:15px}
-  .card ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}
-  .card li{display:flex;gap:12px;font-size:15px;align-items:flex-start}
-  .card li svg{flex:0 0 auto;margin-top:3px;color:var(--good)}
-  .card .price{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
-  .card .price b{font-family:var(--serif);color:var(--ink);font-size:18px}
+  /* pricing */
+  .prices{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:0 auto}
+  @media(max-width:680px){.prices{grid-template-columns:1fr}}
+  .price{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px;box-shadow:var(--sh);text-align:center}
+  .price .who{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .price .amt{font-size:52px;font-weight:800;letter-spacing:-.03em;margin:10px 0 2px}
+  .price .amt small{font-size:17px;font-weight:600;color:var(--muted);vertical-align:middle;margin-left:2px}
+  .price .flat{color:var(--accent-deep);font-weight:700;font-size:14px}
+  .price p{color:var(--muted);font-size:14.5px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .guarantee-line{max-width:640px;margin:34px auto 0;text-align:center;background:var(--accent-soft);border:1px solid #F1DFC0;
+    border-radius:14px;padding:20px 26px;color:var(--ink)}
+  .guarantee-line b{color:var(--accent-deep)}
 
-  /* negotiate list */
-  .neg{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;margin-top:8px}
-  @media(max-width:760px){.neg{grid-template-columns:1fr}}
-  .neg .row{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
-  .neg .row h3{font-size:16px;font-family:var(--sans);font-weight:600}
-  .neg .row p{color:var(--muted);font-size:13.5px;margin-top:4px;max-width:34ch}
-  .neg .row .save{font-family:var(--mono);font-size:12.5px;color:var(--good);white-space:nowrap;font-weight:600}
-
-  /* why band */
-  .why{background:var(--ink);color:#EAF0F6;border-radius:22px;padding:56px;position:relative;overflow:hidden}
-  :root[data-theme="dark"] .why{background:#161F2B;border:1px solid var(--line)}
-  @media (prefers-color-scheme:dark){.why{background:#161F2B;border:1px solid var(--line)}}
-  .why .eyebrow{color:var(--accent)}
-  .why h2{color:#fff;max-width:16ch}
-  :root[data-theme="dark"] .why h2{color:var(--ink)}
-  @media (prefers-color-scheme:dark){.why h2{color:var(--ink)}}
-  .why p{color:#AFBDCD;margin-top:18px;max-width:56ch}
-  .why-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;position:relative;z-index:1}
-  @media(max-width:820px){.why-grid{grid-template-columns:1fr;gap:30px}}
-  .pledge{display:grid;gap:2px}
-  .pledge div{display:flex;gap:14px;align-items:center;padding:16px 0;border-top:1px solid rgba(255,255,255,.12);font-size:15px}
-  :root[data-theme="dark"] .pledge div{border-top-color:var(--line)}
-  @media (prefers-color-scheme:dark){.pledge div{border-top-color:var(--line)}}
-  .pledge div span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--accent);width:30px;flex:0 0 auto}
-
-  /* wins */
-  .wins{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  @media(max-width:820px){.wins{grid-template-columns:1fr}}
-  .win{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px}
-  .win .who{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
-  .win .amt{font-family:var(--serif);font-size:36px;line-height:1;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
-  .win .amt small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--good);margin-top:9px;font-weight:600}
-  .win p{color:var(--muted);font-size:14.5px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
-
-  /* compare */
-  .compare-wrap{overflow-x:auto}
-  .compare{min-width:540px;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:var(--surface)}
-  .crow{display:grid;grid-template-columns:1.35fr 1fr 1fr;align-items:stretch}
-  .crow+.crow{border-top:1px solid var(--line)}
-  .crow>div{padding:15px 20px;font-size:14.5px;display:flex;align-items:center;gap:9px}
-  .crow .lbl{color:var(--ink);font-weight:600;font-family:var(--sans)}
-  .crow .them{color:var(--muted);background:var(--surface-2)}
-  .crow .me{color:var(--ink);font-weight:600;background:color-mix(in srgb,var(--accent) 9%,var(--surface));border-left:1px solid var(--line)}
-  .crow.head>div{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;padding-top:17px;padding-bottom:17px}
-  .crow.head .them{color:var(--muted)}
-  .crow.head .me{background:var(--ink);color:#fff}
-  :root[data-theme="dark"] .crow.head .me{background:var(--accent);color:#231803}
-  @media (prefers-color-scheme:dark){.crow.head .me{background:var(--accent);color:#231803}}
-  .mk{flex:0 0 auto;width:17px;height:17px}
-  .mk.no{color:var(--faint)}
-  .mk.yes{color:var(--good)}
-  @media(max-width:560px){.crow>div{padding:13px 13px;font-size:13px}}
-
-  /* sticky mobile action bar */
-  .mobibar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;grid-template-columns:1fr 1.1fr 1.3fr;gap:8px;
-    padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));
-    background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
-  .mobibar a{display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--sans);font-weight:600;font-size:14px;
-    padding:12px 6px;border-radius:10px;text-decoration:none;border:1px solid var(--line-strong);color:var(--ink)}
-  .mobibar a.primary{background:var(--accent);color:#231803;border-color:var(--accent)}
-  .mobibar a svg{flex:0 0 auto}
-  @media(max-width:720px){.mobibar{display:grid} body{padding-bottom:78px}}
-
-  /* text-a-bill note */
-  .textbill{margin-top:22px;display:flex;gap:13px;align-items:flex-start;background:var(--surface);border:1px dashed var(--line-strong);border-radius:12px;padding:16px 18px}
-  .textbill .ic{flex:0 0 auto;width:38px;height:38px;border-radius:10px;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center}
-  .textbill b{font-family:var(--sans);font-size:15px}
-  .textbill p{font-size:13.5px;color:var(--muted);margin-top:3px}
-  .textbill a{color:var(--accent-ink);font-weight:600;text-decoration:none;white-space:nowrap}
-
-  /* guarantee */
-  .guarantee{display:grid;grid-template-columns:auto 1fr;gap:34px;align-items:center;
-    background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 16%,var(--surface)),var(--surface) 70%);
-    border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-radius:20px;padding:40px 44px;box-shadow:var(--shadow)}
-  @media(max-width:720px){.guarantee{grid-template-columns:1fr;gap:22px;padding:32px 26px;text-align:center}}
-  .seal{width:118px;height:118px;flex:0 0 auto;position:relative;display:grid;place-items:center;margin:0 auto}
-  .seal .ring{position:absolute;inset:0;animation:spin 24s linear infinite}
-  @media (prefers-reduced-motion:reduce){.seal .ring{animation:none}}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .seal .ring text{font-family:var(--mono);font-size:9.2px;letter-spacing:.32em;fill:var(--accent-ink);text-transform:uppercase;font-weight:600}
-  .seal .core{width:74px;height:74px;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:0 6px 18px -6px color-mix(in srgb,var(--accent) 80%,transparent)}
-  .seal .core b{font-family:var(--serif);font-size:26px;color:#231803;line-height:.9;text-align:center}
-  .seal .core b small{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.14em;font-weight:600;margin-top:3px}
-  .guarantee h2{font-size:clamp(24px,3vw,32px)}
-  .guarantee p{color:var(--muted);margin-top:12px;max-width:56ch}
-  @media(max-width:720px){.guarantee p{margin-inline:auto}}
-  .guarantee .eyebrow{display:block;margin-bottom:12px}
+  /* form */
+  .form-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:start}
+  @media(max-width:820px){.form-grid{grid-template-columns:1fr;gap:30px}}
+  .form-side .eyebrow{display:block;margin-bottom:12px}
+  .form-side h2{margin-bottom:16px}
+  .form-side .lead{margin-bottom:24px}
+  .textbill{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px dashed var(--line-strong);border-radius:12px;padding:15px 17px}
+  .textbill .ic{flex:0 0 auto;width:36px;height:36px;border-radius:9px;background:var(--accent-soft);color:var(--accent-deep);display:grid;place-items:center}
+  .textbill b{font-size:15px}
+  .textbill p{font-size:13.5px;color:var(--muted);margin-top:2px}
+  .textbill a{color:var(--accent-deep);font-weight:700;text-decoration:none;white-space:nowrap}
+  form{display:grid;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;box-shadow:var(--sh)}
+  .field{display:grid;gap:7px}
+  .field label{font-weight:600;font-size:14px}
+  .field input,.field select,.field textarea{font-family:var(--sans);font-size:15px;color:var(--ink);background:#fff;
+    border:1px solid var(--line-strong);border-radius:10px;padding:12px 13px;width:100%}
+  .field textarea{resize:vertical;min-height:82px}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .field input[type=file]{padding:11px 13px;cursor:pointer;background:var(--bg-alt);border-style:dashed}
+  .field input[type=file]::file-selector-button{font-family:var(--sans);font-weight:700;font-size:13px;color:#231803;background:var(--accent);border:0;border-radius:7px;padding:8px 13px;margin-right:12px;cursor:pointer}
+  .field .hint-sm{font-size:12px;color:var(--muted)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:500px){.two{grid-template-columns:1fr}}
+  .form-note{font-size:12.5px;color:var(--muted);text-align:center}
+  .cinfo{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+  .cinfo a{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-weight:600;font-size:14.5px;color:var(--ink);
+    background:var(--card);border:1px solid var(--line-strong);border-radius:10px;padding:11px 15px}
+  .cinfo a:hover{border-color:var(--ink)}
+  .cinfo a svg{color:var(--accent-deep)}
 
   /* faq */
-  .faq{display:grid;gap:0;max-width:800px;margin:0 auto}
-  details{border-bottom:1px solid var(--line);padding:6px 0}
-  summary{list-style:none;cursor:pointer;padding:18px 0;display:flex;justify-content:space-between;gap:20px;align-items:center;font-family:var(--serif);font-size:18px;font-weight:600}
+  .faq{max-width:760px;margin:0 auto}
+  details{border-bottom:1px solid var(--line);padding:4px 0}
+  summary{list-style:none;cursor:pointer;padding:18px 0;display:flex;justify-content:space-between;gap:18px;align-items:center;font-weight:700;font-size:17px}
   summary::-webkit-details-marker{display:none}
-  summary .pm{flex:0 0 auto;width:22px;height:22px;position:relative;transition:transform .2s}
-  summary .pm::before,summary .pm::after{content:"";position:absolute;background:var(--accent-ink);border-radius:2px}
-  summary .pm::before{top:10px;left:3px;right:3px;height:2px}
-  summary .pm::after{left:10px;top:3px;bottom:3px;width:2px;transition:opacity .2s}
+  summary .pm{flex:0 0 auto;width:20px;height:20px;position:relative}
+  summary .pm::before,summary .pm::after{content:"";position:absolute;background:var(--accent-deep);border-radius:2px}
+  summary .pm::before{top:9px;left:2px;right:2px;height:2px}
+  summary .pm::after{left:9px;top:2px;bottom:2px;width:2px;transition:opacity .2s}
   details[open] summary .pm::after{opacity:0}
-  details p{color:var(--muted);font-size:15px;padding:0 42px 20px 0}
-
-  /* contact */
-  .contact{background:var(--surface-2)}
-  .contact-in{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-  @media(max-width:820px){.contact-in{grid-template-columns:1fr;gap:32px}}
-  form{display:grid;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px;box-shadow:var(--shadow)}
-  .field{display:grid;gap:7px}
-  .field label{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-  .field input,.field select,.field textarea{font-family:var(--sans);font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line-strong);border-radius:9px;padding:12px 13px;width:100%}
-  .field textarea{resize:vertical;min-height:88px}
-  .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
-  .field input[type=file]{padding:11px 13px;cursor:pointer;background:var(--surface-2);border-style:dashed}
-  .field input[type=file]::file-selector-button{font-family:var(--sans);font-weight:600;font-size:13px;color:#231803;background:var(--accent);border:0;border-radius:7px;padding:8px 13px;margin-right:12px;cursor:pointer}
-  .field .hint-sm{font-size:12px;color:var(--faint);margin-top:2px}
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:520px){.two{grid-template-columns:1fr}}
-  .contact-side h2{margin-bottom:18px}
-  .contact-side .lead{margin-bottom:28px}
-  .cinfo{display:grid;gap:16px}
-  .cinfo a{display:flex;gap:14px;align-items:center;text-decoration:none;font-size:15px;color:var(--ink);font-weight:500}
-  .cinfo a .ic{width:40px;height:40px;border-radius:10px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent-ink);flex:0 0 auto}
-  .cinfo a small{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);text-transform:uppercase;font-weight:400}
-  .form-note{font-size:12px;color:var(--faint);text-align:center}
+  details p{color:var(--muted);font-size:15px;padding:0 38px 20px 0}
 
   /* footer */
-  footer{border-top:1px solid var(--line);padding:40px 0}
-  .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:13.5px}
-  .foot .brand{font-size:16px;color:var(--ink)}
-  .foot .disc{font-family:var(--mono);font-size:11px;color:var(--faint);max-width:52ch;line-height:1.5}
+  footer{background:var(--navy);color:#C7D0DB;padding:44px 0}
+  .foot{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+  .foot .brand{color:#fff;font-size:18px}
+  .foot a{color:#fff;text-decoration:none;font-weight:600}
+  .foot .disc{font-size:12px;color:#8695A6;max-width:52ch;line-height:1.6;margin-top:12px}
 
-  /* about */
-  .about-in{display:grid;grid-template-columns:.85fr 1.15fr;gap:52px;align-items:center}
-  @media(max-width:840px){.about-in{grid-template-columns:1fr;gap:34px}}
-  .idcard{position:relative;border-radius:18px;border:1px solid var(--line);background:
-    radial-gradient(120% 90% at 78% 12%,color-mix(in srgb,var(--accent) 22%,var(--surface)),var(--surface) 62%);
-    padding:36px;display:flex;flex-direction:column;box-shadow:var(--shadow)}
-  .idcard .bars{display:flex;gap:5px;align-items:flex-end;height:30px;margin-bottom:26px}
-  .idcard .bars i{width:6px;border-radius:2px;background:var(--accent);display:block}
-  .idcard .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
-  .idcard .nm{font-family:var(--serif);font-size:30px;line-height:1.05;letter-spacing:-.01em;color:var(--ink)}
-  .idcard .role{font-size:14.5px;color:var(--muted);margin-top:7px}
-  .idcard .div{height:1px;background:var(--line-strong);margin:24px 0}
-  .idcard .big{display:flex;align-items:baseline;gap:12px}
-  .idcard .big b{font-family:var(--serif);font-size:42px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
-  .idcard .big span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);max-width:15ch;line-height:1.5}
-  .about-copy .eyebrow{display:block;margin-bottom:14px}
-  .about-copy h2{max-width:18ch}
-  .about-copy p{color:var(--muted);margin-top:18px;max-width:58ch}
-  .about-copy p.first{color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.55}
-  .carriers{margin-top:26px;border-top:1px solid var(--line);padding-top:20px}
-  .carriers .cap{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
-  .carriers .row{display:flex;flex-wrap:wrap;gap:10px}
-  .carriers .row span{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);padding:8px 15px;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface);letter-spacing:-.01em}
-  .creds{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
-  .creds span{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:7px 13px}
-  .creds span b{color:var(--accent-ink);font-weight:600}
+  /* sticky mobile cta */
+  .mobibar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;gap:8px;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.94);
+    backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+  .mobibar a{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;font-weight:700;font-size:15px;padding:13px;border-radius:11px}
+  .mobibar a.call{flex:0 0 auto;background:#fff;border:1.5px solid var(--line-strong);color:var(--ink);padding:13px 18px}
+  .mobibar a.primary{background:var(--accent);color:#231803}
+  @media(max-width:760px){.mobibar{display:flex}body{padding-bottom:74px}}
 
-  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease,transform .5s ease}
   .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 </style>
@@ -338,7 +186,7 @@
     <span class="tb-role">Independent Wireless Advisor</span>
     <div class="tb-actions">
       <a class="tb-call" href="tel:+17869758245"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>(786) 975-8245</a>
-      <a href="sms:+17869758245?&body=Hi%20Andi,%20I'd%20like%20a%20free%20wireless%20bill%20audit.">Text</a>
+      <a href="sms:+17869758245?&body=Hi%20Andi,%20I'd%20like%20a%20free%20wireless%20estimate.">Text</a>
     </div>
   </div>
 </div>
@@ -348,357 +196,122 @@
     <a class="brand" href="#top" aria-label="Clearline home">
       <svg class="sig" viewBox="0 0 32 32" fill="none" aria-hidden="true">
         <rect x="3" y="19" width="4" height="10" rx="1.5" fill="var(--accent)"/>
-        <rect x="10" y="13" width="4" height="16" rx="1.5" fill="currentColor" opacity=".55"/>
-        <rect x="17" y="8" width="4" height="21" rx="1.5" fill="currentColor" opacity=".8"/>
+        <rect x="10" y="13" width="4" height="16" rx="1.5" fill="var(--ink)" opacity=".5"/>
+        <rect x="17" y="8" width="4" height="21" rx="1.5" fill="var(--ink)" opacity=".8"/>
         <rect x="24" y="3" width="4" height="26" rx="1.5" fill="var(--accent)"/>
       </svg>
       Clearline
     </a>
     <nav class="nav-links">
       <a href="#how">How it works</a>
-      <a href="#about">About</a>
-      <a href="#who">Who I help</a>
-      <a href="#negotiate">What I negotiate</a>
+      <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <div class="nav-cta">
-      <button class="theme-btn" id="themeToggle" aria-label="Toggle color theme" title="Toggle theme">◑</button>
-      <a class="btn btn-primary" href="#contact">Get a free estimate</a>
-    </div>
+    <div class="nav-cta"><a class="btn btn-primary" href="#estimate">Get a free estimate</a></div>
   </div>
 </header>
 
 <main id="top">
   <!-- HERO -->
   <section class="hero">
-    <canvas id="waves" aria-hidden="true"></canvas>
     <div class="wrap hero-in">
-      <div class="hero-copy">
-        <span class="eyebrow">15+ years inside the carriers · now on your side</span>
-        <h1 style="margin-top:16px">I spent 15 years selling wireless. Now I <em>save you</em> from it.</h1>
-        <p class="lead">I sold for Verizon, T-Mobile, AT&amp;T, and Spectrum. I know the fine print they count on you skipping, the fees that quietly renew, and the discounts reps never mention. Now I use all of it to cut your bill — because I don't work for them anymore.</p>
+      <div>
+        <span class="eyebrow">15+ years inside the carriers — now on your side</span>
+        <h1>Pay less for the same phones and coverage.</h1>
+        <p class="lead">I spent 15 years inside Verizon, T-Mobile, AT&amp;T and Spectrum. Now I shop all of them to find your best price. Free to find out — you only pay a flat fee if you want the offers in hand.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#contact">Get a free estimate</a>
-          <a class="btn btn-ghost" href="#how">See how it works</a>
+          <a class="btn btn-primary btn-lg" href="#estimate">Get a free estimate</a>
+          <a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
         </div>
-        <div class="hero-trust"><span class="dot"></span> Ex-carrier insider · No savings, no fee · You risk nothing</div>
+        <div class="hero-trust"><span class="dot"></span> No savings, no fee · You keep 100% of what you save</div>
       </div>
-
-      <!-- ESTIMATOR -->
-      <div class="est reveal" id="estimator">
-        <div class="est-top">
-          <h3>Savings estimator</h3>
-          <div class="toggle" role="group" aria-label="Choose account type">
-            <button id="tHome" aria-pressed="true">Household</button>
-            <button id="tBiz" aria-pressed="false">Business</button>
-          </div>
+      <div class="hero-card reveal">
+        <div class="hc-label">A typical result</div>
+        <div class="hc-row">
+          <span class="hc-was">$210/mo</span>
+          <span class="hc-arrow">→</span>
+          <span class="hc-now">$150<small style="font-size:20px;font-weight:700;color:var(--muted)">/mo</small></span>
         </div>
-        <div class="est-readout">
-          <div class="label">Estimated first-year savings</div>
-          <div class="est-amt"><span class="cur">$</span><span id="lowAmt">0</span><span style="color:var(--muted)"> – </span><span class="cur">$</span><span id="highAmt">0</span></div>
-          <div class="est-sub" id="estSub">Based on a typical 15–30% reduction on wireless spend.</div>
-        </div>
-        <div class="est-bar"><span id="estFill" style="width:22%"></span></div>
-        <div class="slider-row">
-          <div class="lr"><span>Current monthly wireless bill</span><b id="billOut">$180 / mo</b></div>
-          <input type="range" id="bill" min="50" max="3000" step="10" value="180" aria-label="Current monthly wireless bill">
-        </div>
-        <p class="est-fine">Estimate only — your real number depends on lines, usage, and current contracts. A free audit gives you the exact figure.</p>
+        <div class="hc-save">You keep about $720 a year</div>
+        <div class="hc-note">Same coverage. Same phones. A smaller bill.</div>
       </div>
     </div>
   </section>
 
-  <!-- TRUST STRIP -->
-  <div class="strip">
-    <div class="wrap">
-      <div class="strip-grid">
-        <div class="stat"><div class="n">15+</div><div class="k">Years inside the industry</div></div>
-        <div class="stat"><div class="n">4</div><div class="k">Carriers worked from within</div></div>
-        <div class="stat"><div class="n">23%</div><div class="k">Typical bill reduction</div></div>
-        <div class="stat"><div class="n">$0</div><div class="k">Cost for your first audit</div></div>
-      </div>
-    </div>
-  </div>
-
   <!-- HOW -->
-  <section id="how">
+  <section id="how" class="alt">
     <div class="wrap">
-      <div class="head reveal">
+      <div class="head center">
         <span class="eyebrow">How it works</span>
         <h2>Free to find out. Pay only to unlock.</h2>
-        <p class="lead">Send your bill, I do the digging, you see what you'll save — and you only pay the flat fee when you want the actual offers in hand.</p>
+        <p class="lead">Four simple steps. No jargon, no pressure, no sales pitch.</p>
       </div>
       <div class="steps">
         <div class="step reveal">
-          <div class="num"><i></i></div>
+          <div class="num"></div>
           <h3>Submit your bill</h3>
-          <p>Upload your latest statement right on the site and tell me how you use your phones. Two minutes, free, no obligation.</p>
+          <p>Upload your latest statement right here. Two minutes, free, no obligation.</p>
         </div>
         <div class="step reveal">
-          <div class="num"><i></i></div>
+          <div class="num"></div>
           <h3>I shop every carrier</h3>
-          <p>By hand across Verizon, T-Mobile, AT&amp;T, Spectrum and the MVNOs — stacking every discount and flagging charges you shouldn't be paying.</p>
+          <p>By hand, across all the major networks — stacking discounts and flagging junk fees.</p>
         </div>
         <div class="step reveal">
-          <div class="num"><i></i></div>
+          <div class="num"></div>
           <h3>See what you'll save</h3>
-          <p>I come back with your free estimate: how much I can cut and how many offers I found. No cost to get this far.</p>
+          <p>I come back with your free estimate: how much I can cut and how many offers I found.</p>
         </div>
         <div class="step reveal">
-          <div class="num"><i></i></div>
-          <h3>Unlock all your offers</h3>
-          <p>Pay the flat fee and I hand over every offer in full — exact plans, prices, and how to switch. Waived if I can't beat your bill.</p>
+          <div class="num"></div>
+          <h3>Unlock your offers</h3>
+          <p>Pay the flat fee and I hand over every offer in full — plans, prices, and how to switch.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WHO -->
-  <section id="who" style="padding-top:24px">
+  <!-- PRICING -->
+  <section id="pricing">
     <div class="wrap">
-      <div class="head reveal">
-        <span class="eyebrow">Who I help</span>
-        <h2>Two kinds of clients, one goal: stop the leak.</h2>
+      <div class="head center">
+        <span class="eyebrow">Simple pricing</span>
+        <h2>One flat fee. Only if I beat your bill.</h2>
+        <p class="lead">No subscriptions, no commissions, no surprises. You keep every dollar I save you.</p>
       </div>
-      <div class="aud">
-        <div class="card reveal">
-          <span class="tag">For your household</span>
-          <h3>Families &amp; individuals</h3>
-          <p>You've been on the same plan for years and quietly watched the bill creep. Let's fix that.</p>
-          <ul>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Right-size your data so you stop paying for gigs you never touch</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Unlock autopay, loyalty, and employer/student discounts you're owed</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Time your next phone upgrade so the "free" one is actually free</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Compare MVNOs on the same towers for a fraction of the price</li>
-          </ul>
-          <div class="price"><b>$129 flat audit</b> — and only if I beat your current bill. Typical savings: $40–$110/mo.</div>
+      <div class="prices">
+        <div class="price reveal">
+          <div class="who">Households</div>
+          <div class="amt">$129<small></small></div>
+          <div class="flat">flat, one time</div>
+          <p>Right-size your plan, unlock every discount you're owed, and cut what you don't need.</p>
         </div>
-        <div class="card reveal">
-          <span class="tag">For your business</span>
-          <h3>Teams, fleets &amp; IoT</h3>
-          <p>Ten lines or ten thousand, cellular spend hides waste at scale. I audit the whole account.</p>
-          <ul>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Kill zombie lines, overage creep, and duplicate device fees</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Negotiate pooled data and volume rates carriers don't advertise</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Right-plan IoT, tablets, and field devices separately from staff phones</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Ongoing bill monitoring so savings don't quietly erode next quarter</li>
-          </ul>
-          <div class="price"><b>$299 flat audit</b> — waived unless I cut your bill. Typical savings: 18–35% a year.</div>
+        <div class="price reveal">
+          <div class="who">Business</div>
+          <div class="amt">$299<small></small></div>
+          <div class="flat">flat, one time</div>
+          <p>Kill dead lines, overage, and duplicate fees across your whole account.</p>
         </div>
+      </div>
+      <div class="guarantee-line reveal">
+        <b>If I can't beat your current bill, you don't pay a cent.</b> The estimate is always free — you only pay the flat fee to unlock the offers.
       </div>
     </div>
   </section>
 
-  <!-- WINS -->
-  <section id="wins" style="padding-top:24px">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="eyebrow">What an audit turns up</span>
-        <h2>The kind of money hiding in a normal bill.</h2>
-        <p class="lead">Representative examples of what a review typically uncovers — the everyday waste carriers count on you never noticing.</p>
-      </div>
-      <div class="wins">
-        <div class="win reveal">
-          <div class="who">Household · 4 lines</div>
-          <div class="amt">$71<small>saved / month</small></div>
-          <p>Old unlimited plan charging for premium data nobody used. Same network, right-sized plan, autopay discount finally switched on.</p>
-        </div>
-        <div class="win reveal">
-          <div class="who">Small business · 12 lines</div>
-          <div class="amt">31%<small>off the annual bill</small></div>
-          <p>Two dead lines still billing every month and three tablets stuck on phone plans. Repooled the data — about $3,900 a year back.</p>
-        </div>
-        <div class="win reveal">
-          <div class="who">Retired couple · 2 lines</div>
-          <div class="amt">$0<small>roaming, down from $240</small></div>
-          <p>Snowbirds hammered by travel charges every winter. Moved to a plan with the coverage baked in before their next trip out.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" style="padding-top:24px">
-    <div class="wrap about-in">
-      <div class="idcard reveal" aria-label="About the advisor">
-        <div class="bars" aria-hidden="true"><i style="height:34%"></i><i style="height:56%"></i><i style="height:78%"></i><i style="height:100%"></i></div>
-        <div class="kicker">Your advisor</div>
-        <div class="nm">Andi Montero</div>
-        <div class="role">Independent Wireless Advisor</div>
-        <div class="div"></div>
-        <div class="big"><b>15+</b><span>years inside the major carriers</span></div>
-      </div>
-      <div class="about-copy reveal">
-        <span class="eyebrow">Meet your advisor</span>
-        <h2>Fifteen years on the other side of the counter.</h2>
-        <p class="first">I didn't read about how carriers price a bill in a book — I sat in the meetings where those prices were set.</p>
-        <p>Over 15+ years I carried a badge at Verizon, T-Mobile, AT&amp;T, and Spectrum — in the rooms where plans are built, quotas are handed out, and "loyalty" discounts get quietly walked back. I've run the scripts reps use, watched customers upsold into data they'd never touch, and learned exactly which fees are negotiable and which are just there to pad the total.</p>
-        <p>I left because the incentives never pointed at the customer. Now they do. Every trick I learned selling wireless, I put to work shrinking your bill instead of growing it.</p>
-        <div class="carriers">
-          <div class="cap">Carriers I've worked for</div>
-          <div class="row">
-            <span>Verizon</span>
-            <span>T-Mobile</span>
-            <span>AT&amp;T</span>
-            <span>Spectrum</span>
-          </div>
-        </div>
-        <div class="creds">
-          <span><b>15+</b> years in wireless</span>
-          <span>Plans · devices · <b>IoT</b> · business accounts</span>
-          <span><b>Zero</b> carrier commissions today</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEGOTIATE -->
-  <section id="negotiate" style="padding-top:24px">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="eyebrow">What I negotiate</span>
-        <h2>The line items where the money actually hides.</h2>
-        <p class="lead">Most of your bill is negotiable, waivable, or replaceable. Here's what I go after first.</p>
-      </div>
-      <div class="neg reveal">
-        <div class="row"><div><h3>Plan &amp; data tier</h3><p>Matching the plan to real usage, not the upsell.</p></div><div class="save">save 10–25%</div></div>
-        <div class="row"><div><h3>Device financing</h3><p>Promo trade-ins and BYOD credits done right.</p></div><div class="save">save $200–$800</div></div>
-        <div class="row"><div><h3>Junk &amp; admin fees</h3><p>"Regulatory recovery," insurance you forgot.</p></div><div class="save">save $8–$25/line</div></div>
-        <div class="row"><div><h3>Autopay &amp; loyalty</h3><p>Discounts you qualify for but never enabled.</p></div><div class="save">save 5–15%</div></div>
-        <div class="row"><div><h3>MVNO switch</h3><p>Same network, a third of the cost, for the right user.</p></div><div class="save">save up to 60%</div></div>
-        <div class="row"><div><h3>Roaming &amp; travel</h3><p>Day passes vs. eSIM vs. add-ons, priced out.</p></div><div class="save">save $10/day</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPARE -->
-  <section id="compare" style="padding-top:24px">
-    <div class="wrap">
-      <div class="head reveal">
-        <span class="eyebrow">The difference</span>
-        <h2>A carrier rep vs. someone on your side.</h2>
-        <p class="lead">Same phones, same networks — completely different incentive. Here's who's actually working for you.</p>
-      </div>
-      <div class="compare-wrap reveal">
-        <div class="compare">
-          <div class="crow head">
-            <div class="lbl"></div>
-            <div class="them">Carrier store rep</div>
-            <div class="me">Clearline</div>
-          </div>
-          <div class="crow">
-            <div class="lbl">Works for</div>
-            <div class="them">The carrier's sales targets</div>
-            <div class="me">You, and only you</div>
-          </div>
-          <div class="crow">
-            <div class="lbl">Earns more when you upgrade</div>
-            <div class="them"><svg class="mk no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg>Yes — that's the job</div>
-            <div class="me"><svg class="mk yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Never — no carrier pays me</div>
-          </div>
-          <div class="crow">
-            <div class="lbl">Reads your bill for waste</div>
-            <div class="them"><svg class="mk no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>No</div>
-            <div class="me"><svg class="mk yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Every line of it</div>
-          </div>
-          <div class="crow">
-            <div class="lbl">Will tell you to leave their store</div>
-            <div class="them"><svg class="mk no" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Never</div>
-            <div class="me"><svg class="mk yes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Whenever it's cheaper for you</div>
-          </div>
-          <div class="crow">
-            <div class="lbl">Knows every carrier's pricing</div>
-            <div class="them">Only their own</div>
-            <div class="me">All four — from the inside</div>
-          </div>
-          <div class="crow">
-            <div class="lbl">Costs you to find out</div>
-            <div class="them">A hard sell</div>
-            <div class="me">$0 unless I save you money</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY INDEPENDENT -->
-  <section style="padding-top:24px">
-    <div class="wrap">
-      <div class="why reveal">
-        <div class="why-grid">
-          <div>
-            <span class="eyebrow">Why independent matters</span>
-            <h2 style="margin-top:14px">I know their playbook because I helped write it.</h2>
-            <p>Store reps hit sales targets — their job is to move you up a tier, not down. I spent 15 years on that side, so I know every upsell, waivable fee, and unadvertised rate by name. The difference now: no quota, no storefront, no reason to recommend anything except the cheapest setup that still does everything you need.</p>
-          </div>
-          <div class="pledge">
-            <div><span>01</span> I never take commission from a carrier for your switch</div>
-            <div><span>02</span> If the best move is staying put, I'll tell you that</div>
-            <div><span>03</span> Your bill and data stay private — used for the audit only</div>
-            <div><span>04</span> If I can't beat your bill, you owe me nothing</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GUARANTEE -->
-  <section style="padding-top:24px">
-    <div class="wrap">
-      <div class="guarantee reveal">
-        <div class="seal" aria-hidden="true">
-          <svg class="ring" viewBox="0 0 118 118">
-            <defs><path id="circlePath" d="M59,59 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
-            <text><textPath href="#circlePath" startOffset="0">· NO SAVINGS · NO FEE · YOU RISK NOTHING </textPath></text>
-          </svg>
-          <div class="core"><b>$0<small>OR YOU PAY</small></b></div>
-        </div>
-        <div>
-          <span class="eyebrow">The guarantee</span>
-          <h2>If I can't beat your bill, you don't pay a cent.</h2>
-          <p>One flat fee — <b>$129</b> for households, <b>$299</b> for business — and you only pay it if I beat your current bill. If the best deal really is the one you're already on, I'll tell you straight and the audit costs you nothing. All of the upside, none of the risk. That's the deal.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" style="padding-top:24px">
-    <div class="wrap">
-      <div class="head reveal" style="margin:0 auto 44px;text-align:center">
-        <span class="eyebrow">Questions</span>
-        <h2>The stuff people ask before they send a bill.</h2>
-      </div>
-      <div class="faq reveal">
-        <details open><summary>How do you get paid? <span class="pm"></span></summary><p>One flat fee, and only if I save you money — a $129 audit for households, $299 for business accounts. If I can't beat what you're already paying, the audit is free and you owe me nothing. You keep 100% of every dollar I save you, for as long as you keep the plan. I take no carrier commissions, so my only incentive is your lowest real cost.</p></details>
-        <details><summary>Do I have to switch carriers? <span class="pm"></span></summary><p>Never. Plenty of clients save hundreds a year by staying on their current network with a better plan and the right discounts applied. Switching is just one option on the table, not the goal.</p></details>
-        <details><summary>Is my billing data safe? <span class="pm"></span></summary><p>Yes. I only need the statement details required to run the audit, I don't need your account password, and your information is used solely to build your report — never shared or sold.</p></details>
-        <details><summary>What do you need from me to start? <span class="pm"></span></summary><p>One recent bill (PDF or photo) and a couple of sentences about how you use your service — travel, hotspot, number of lines. That's genuinely it for the free audit.</p></details>
-        <details><summary>Does this work for small businesses? <span class="pm"></span></summary><p>Especially well. Business accounts accumulate the most waste — inactive lines, overage, mismatched IoT plans. The more lines you have, the bigger the leak I can usually plug.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <div class="wrap contact-in">
-      <div class="contact-side reveal">
+  <!-- ESTIMATE FORM -->
+  <section id="estimate" class="alt">
+    <div class="wrap form-grid">
+      <div class="form-side reveal">
         <span class="eyebrow">Free estimate</span>
-        <h2 style="margin-top:14px">Submit your bill. See what you'll save — free.</h2>
-        <p class="lead">Upload your latest statement and I'll shop every carrier by hand, then come back with your free estimate. You only pay the flat fee if you want the full offers unlocked — and nothing at all if I can't beat your bill.</p>
+        <h2>Submit your bill. See what you'll save.</h2>
+        <p class="lead">Upload your latest statement and I'll shop every carrier by hand, then come back with your free estimate.</p>
         <div class="textbill">
           <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
-          <div><b>Prefer to text it over?</b><p>Snap your latest statement and send it to <a href="sms:+17869758245?&body=Hi,%20I'd%20like%20a%20free%20wireless%20estimate.">(786) 975-8245</a> instead — either way works.</p></div>
+          <div><b>Prefer to text it over?</b><p>Send your bill to <a href="sms:+17869758245?&body=Hi%20Andi,%20I'd%20like%20a%20free%20wireless%20estimate.">(786) 975-8245</a> instead — either way works.</p></div>
         </div>
         <div class="cinfo">
-          <a href="mailto:hello@clearlinewireless.example">
-            <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-            <span>hello@clearlinewireless.example<small>Email</small></span>
-          </a>
-          <a href="tel:+17869758245">
-            <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
-            <span>(786) 975-8245<small>Call or text</small></span>
-          </a>
+          <a href="tel:+17869758245"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call (786) 975-8245</a>
         </div>
       </div>
 
@@ -716,100 +329,67 @@
             <label for="ftype">Account type</label>
             <select id="ftype" name="type">
               <option>Household</option>
-              <option>Small business</option>
-              <option>Business — 50+ lines</option>
+              <option>Business</option>
             </select>
           </div>
         </div>
         <div class="field">
-          <label for="fmsg">Roughly what are you paying now?</label>
-          <textarea id="fmsg" name="message" placeholder="e.g. 4 lines, about $210/mo, two of us travel for work…"></textarea>
+          <label for="fmsg">Roughly what are you paying now? <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+          <textarea id="fmsg" name="message" placeholder="e.g. 4 lines, about $210/mo"></textarea>
         </div>
         <div class="field">
           <label for="fbill">Upload your latest bill</label>
           <input id="fbill" name="bill" type="file" accept="image/*,application/pdf,.pdf">
           <span class="hint-sm">PDF or photo. This is what I shop your quotes against.</span>
         </div>
-        <button class="btn btn-primary" type="submit" style="justify-content:center">Get my free estimate</button>
+        <button class="btn btn-primary" type="submit" style="width:100%">Get my free estimate</button>
         <p class="form-note" id="formNote">Free, no obligation. You only pay to unlock the offers.</p>
       </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head center">
+        <span class="eyebrow">Questions</span>
+        <h2>Good to know</h2>
+      </div>
+      <div class="faq reveal">
+        <details open><summary>How do you get paid? <span class="pm"></span></summary><p>One flat fee, and only if I save you money — $129 for households, $299 for business. If I can't beat what you're already paying, you owe me nothing. I take no carrier commissions, so my only goal is your lowest real cost.</p></details>
+        <details><summary>Do I have to switch carriers? <span class="pm"></span></summary><p>Never. Plenty of people save just by fixing their current plan and turning on discounts they qualify for. Switching is only one option, never the goal.</p></details>
+        <details><summary>Is my bill information safe? <span class="pm"></span></summary><p>Yes. I only need the statement details to run your estimate — never your account password — and your information is used only to build your quote. It's never shared or sold.</p></details>
+        <details><summary>What do you need from me to start? <span class="pm"></span></summary><p>Just one recent bill (PDF or photo) and a sentence about how you use your service. That's the whole intake for your free estimate.</p></details>
+      </div>
     </div>
   </section>
 </main>
 
 <div class="mobibar" aria-label="Quick contact">
-  <a href="tel:+17869758245"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
-  <a href="sms:+17869758245?&body=Hi,%20I'd%20like%20a%20free%20wireless%20bill%20audit."><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text bill</a>
-  <a class="primary" href="#contact">Free audit</a>
+  <a class="call" href="tel:+17869758245" aria-label="Call Andi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
+  <a class="primary" href="#estimate">Get a free estimate</a>
 </div>
 
 <footer>
   <div class="wrap foot">
-    <a class="brand" href="#top">
-      <svg class="sig" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <rect x="3" y="19" width="4" height="10" rx="1.5" fill="var(--accent)"/>
-        <rect x="10" y="13" width="4" height="16" rx="1.5" fill="currentColor" opacity=".55"/>
-        <rect x="17" y="8" width="4" height="21" rx="1.5" fill="currentColor" opacity=".8"/>
-        <rect x="24" y="3" width="4" height="26" rx="1.5" fill="var(--accent)"/>
-      </svg>
-      Clearline
-    </a>
-    <p class="disc">Clearline is an independent wireless consulting service and is not affiliated with, endorsed by, or acting on behalf of any wireless carrier. Savings figures are illustrative. Placeholder brand &amp; contact details — swap in your own.</p>
-    <span style="font-family:var(--mono);font-size:12px;color:var(--faint)">© 2026 Clearline</span>
+    <div>
+      <div class="brand">Clearline</div>
+      <p class="disc">Clearline is an independent wireless consulting service and is not affiliated with, endorsed by, or acting on behalf of any wireless carrier. Savings figures are illustrative.</p>
+    </div>
+    <div style="text-align:right">
+      <div><a href="tel:+17869758245">(786) 975-8245</a></div>
+      <div style="margin-top:6px;font-size:13px;color:#8695A6">Andi Montero · Independent Wireless Advisor</div>
+      <div style="margin-top:14px;font-family:var(--mono);font-size:11px;color:#66788B">© 2026 Clearline</div>
+    </div>
   </div>
 </footer>
 
 <script>
 (function(){
-  /* THEME */
-  var root=document.documentElement, tb=document.getElementById('themeToggle');
-  function apply(t){ if(t){root.setAttribute('data-theme',t);} }
-  tb.addEventListener('click',function(){
-    var cur=root.getAttribute('data-theme');
-    if(!cur){ cur = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark':'light'; }
-    apply(cur==='dark'?'light':'dark');
-  });
-
-  /* ESTIMATOR */
-  var bill=document.getElementById('bill'), billOut=document.getElementById('billOut'),
-      low=document.getElementById('lowAmt'), high=document.getElementById('highAmt'),
-      fill=document.getElementById('estFill'), sub=document.getElementById('estSub'),
-      tHome=document.getElementById('tHome'), tBiz=document.getElementById('tBiz');
-  var mode='home';
-  function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
-  function calc(){
-    var m=+bill.value;
-    // business accounts tend to carry more recoverable waste
-    var lo = mode==='home'?0.15:0.18, hi = mode==='home'?0.30:0.35;
-    var annual=m*12;
-    low.textContent=fmt(annual*lo);
-    high.textContent=fmt(annual*hi);
-    billOut.textContent='$'+fmt(m)+' / mo';
-    // fill maps midpoint rate onto the bar
-    fill.style.width=((lo+hi)/2*100).toFixed(0)+'%';
-    sub.textContent = mode==='home'
-      ? 'Based on a typical 15–30% reduction for households.'
-      : 'Based on a typical 18–35% reduction for business accounts.';
-  }
-  bill.addEventListener('input',calc);
-  function setMode(m){
-    mode=m;
-    tHome.setAttribute('aria-pressed', m==='home');
-    tBiz.setAttribute('aria-pressed', m==='biz');
-    if(m==='biz' && +bill.value<300){ bill.value=600; }
-    calc();
-  }
-  tHome.addEventListener('click',function(){setMode('home');});
-  tBiz.addEventListener('click',function(){setMode('biz');});
-  calc();
-
-  /* FORM → Google Sheet
-     Paste your Apps Script Web App URL between the quotes below. Until you do,
-     the form still confirms to the visitor but nothing is recorded. */
+  /* FORM → Google Sheet (bill upload saved to Drive) */
   var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbzljt5_a29FBi7UMrosIGTFEpEJWBQ8eMCxX0UMB6t_jEdbmE1u_-Xy1iuN72yWCEoB/exec";
-
+  var MAX_BILL_BYTES = 12 * 1024 * 1024;
   var form=document.getElementById('auditForm'), note=document.getElementById('formNote');
-  var MAX_BILL_BYTES = 12 * 1024 * 1024; // 12 MB cap
 
   form.addEventListener('submit',function(e){
     e.preventDefault();
@@ -817,14 +397,14 @@
     var email=document.getElementById('femail').value.trim();
     if(!name||!/.+@.+\..+/.test(email)){
       note.textContent='Add your name and a valid email so I can send your estimate back.';
-      note.style.color='var(--accent-ink)';
+      note.style.color='var(--accent-deep)';
       return;
     }
     var fileInput=document.getElementById('fbill');
     var file=fileInput && fileInput.files && fileInput.files[0];
     if(file && file.size>MAX_BILL_BYTES){
       note.textContent='That file is over 12 MB — try a photo or a compressed PDF.';
-      note.style.color='var(--accent-ink)';
+      note.style.color='var(--accent-deep)';
       return;
     }
     var btn=form.querySelector('button');
@@ -846,25 +426,20 @@
         fetch(SHEET_ENDPOINT,{method:'POST',body:params,mode:'no-cors'}).catch(function(){});
       }
       btn.textContent='Estimate requested ✓';
-      btn.style.background='var(--good)';
+      btn.style.background='var(--good)'; btn.style.color='#fff'; btn.style.borderColor='var(--good)';
       note.textContent="Thanks, "+name.split(' ')[0]+" — got your bill. I'll shop your quotes and be in touch with your free estimate soon.";
       note.style.color='var(--muted)';
     }
 
     if(file){
       var reader=new FileReader();
-      reader.onload=function(){
-        var b64=String(reader.result).split(',')[1]||'';
-        send({name:file.name, type:file.type||'application/octet-stream', data:b64});
-      };
+      reader.onload=function(){ send({name:file.name, type:file.type||'application/octet-stream', data:String(reader.result).split(',')[1]||''}); };
       reader.onerror=function(){ send(null); };
       reader.readAsDataURL(file);
-    } else {
-      send(null);
-    }
+    } else { send(null); }
   });
 
-  /* REVEAL */
+  /* reveal on scroll */
   if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion:reduce)').matches){
     var io=new IntersectionObserver(function(es){
       es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
@@ -872,48 +447,6 @@
     document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
   } else {
     document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');});
-  }
-
-  /* HERO WAVES */
-  var cv=document.getElementById('waves'), ctx=cv&&cv.getContext('2d');
-  if(ctx){
-    var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-    var dpr=Math.min(window.devicePixelRatio||1,2), W=0,H=0, origin={x:0,y:0};
-    function css(v){ return getComputedStyle(root).getPropertyValue(v).trim(); }
-    function resize(){
-      W=cv.clientWidth; H=cv.clientHeight;
-      cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-      // origin near right side on wide screens, top-right on narrow
-      origin.x = W>820 ? W*0.82 : W*0.9;
-      origin.y = W>820 ? H*0.42 : H*0.16;
-    }
-    resize(); addEventListener('resize',resize);
-    var rings=[]; var maxR=0;
-    function seed(){ maxR=Math.hypot(W,H)*0.9; rings=[]; for(var i=0;i<7;i++){ rings.push(i*(maxR/7)); } }
-    seed(); addEventListener('resize',seed);
-    function frame(){
-      ctx.clearRect(0,0,W,H);
-      var wave=css('--wave'), acc=css('--accent');
-      for(var i=0;i<rings.length;i++){
-        rings[i]+=0.35;
-        if(rings[i]>maxR) rings[i]=0;
-        var t=rings[i]/maxR;
-        var alpha=(1-t)*0.16;
-        ctx.beginPath();
-        ctx.arc(origin.x,origin.y,rings[i],0,Math.PI*2);
-        ctx.strokeStyle=(i%3===0?acc:wave);
-        ctx.globalAlpha=alpha;
-        ctx.lineWidth=1.2;
-        ctx.stroke();
-      }
-      // signal source dot
-      ctx.globalAlpha=0.9; ctx.beginPath();
-      ctx.arc(origin.x,origin.y,4,0,Math.PI*2);
-      ctx.fillStyle=css('--accent'); ctx.fill();
-      ctx.globalAlpha=1;
-      if(!reduce) requestAnimationFrame(frame);
-    }
-    if(reduce){ frame(); } else { requestAnimationFrame(frame); }
   }
 })();
 </script>
